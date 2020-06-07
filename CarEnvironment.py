@@ -120,7 +120,7 @@ class CarEnvironment(object):
         # return 50*alignment + euclidean_distance + 50*ang_diff
 
         # Change the computation
-        ang_diff = (np.abs(self.angular_difference(start_config, end_config)))*2
+        ang_diff = (np.abs(self.angular_difference(start_config, end_config))) ** 2
         dist_x = (start_config[0, :] - end_config[0, :]) ** 2
         dist_y = (start_config[1, :] - end_config[1, :]) ** 2
         dist = (ang_diff + dist_x + dist_y) ** 0.5
