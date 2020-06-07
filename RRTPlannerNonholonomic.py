@@ -23,7 +23,7 @@ class RRTPlannerNonholonomic(object):
         plan.append(start_config)
 
         for i in range(self.max_iter):
-            print(i)
+            # print(i)
             x_rand = self.sample(goal_config)
             if not self.env.state_validity_checker(x_rand):
                 continue

@@ -109,21 +109,21 @@ class CarEnvironment(object):
             @param end_config: a [3 x 1] numpy array of goal state
         """        
 
-        ang_diff = np.abs(self.angular_difference(start_config, end_config))/180
-        e_to_s = start_config[:2,:] - end_config[:2,:] # Shape: [2 x n]
-        euclidean_distance = np.linalg.norm(e_to_s, axis=0) # Shape: [n]
-        e_to_s = e_to_s / euclidean_distance[None,:]
-        e_vec = np.array([np.cos(end_config[2,0]), np.sin(end_config[2,0])])
-        alignment = 1 - np.abs(e_vec.dot(e_to_s)) # Shape: [n]
-
-        # alignment is in [0,1], euclidean_distance can be large, ang_diff is between [0,1]
-        return 50*alignment + euclidean_distance + 50*ang_diff
+        # ang_diff = np.abs(self.angular_difference(start_config, end_config))/180
+        # e_to_s = start_config[:2,:] - end_config[:2,:] # Shape: [2 x n]
+        # euclidean_distance = np.linalg.norm(e_to_s, axis=0) # Shape: [n]
+        # e_to_s = e_to_s / euclidean_distance[None,:]
+        # e_vec = np.array([np.cos(end_config[2,0]), np.sin(end_config[2,0])])
+        # alignment = 1 - np.abs(e_vec.dot(e_to_s)) # Shape: [n]
+        #
+        # # alignment is in [0,1], euclidean_distance can be large, ang_diff is between [0,1]
+        # return 50*alignment + euclidean_distance + 50*ang_diff
 
         # Change the computation
-        # ang_diff = (np.abs(self.angular_difference(start_config, end_config)))*2
-        # dist_x = (start_config[0, :] - end_config[0, :]) ** 2
-        # dist_y = (start_config[1, :] - end_config[1, :]) ** 2
-        # dist = (ang_diff + dist_x + dist_y) ** 0.5
+        ang_diff = (np.abs(self.angular_difference(start_config, end_config)))*2
+        dist_x = (start_config[0, :] - end_config[0, :]) ** 2
+        dist_y = (start_config[1, :] - end_config[1, :]) ** 2
+        dist = (ang_diff + dist_x + dist_y) ** 0.5
         return dist
 
 
@@ -247,8 +247,8 @@ class CarEnvironment(object):
         if plan is not None:
             for i in range(np.shape(plan)[1]):
                 self.plot_car(plan[:,i:i+1])
-                self.fig.canvas.draw()
-                plt.pause(.025) 
+                # self.fig.canvas.draw()
+                # plt.pause(.025)
 
-        self.fig.canvas.draw()
-        plt.pause(1e-10) 
+        # self.fig.canvas.draw()
+        # plt.pause(1e-10)
